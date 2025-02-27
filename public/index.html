@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp QR Code</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        #status {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: red;
+        }
+        #qrcode {
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>WhatsApp QR Code</h1>
+    <div id="status">Aguardando conexão...</div>
+    <div id="qrcode"></div>
+    <button onclick="refreshQRCode()">Atualizar QR Code</button>
+
+    <script>
+        function fetchQRCode() {
+            fetch('/qrcode')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('qrcode').innerHTML = `<img src="${data.qr}" alt="QR Code">`;
+                });
+        }
+
+        function checkStatus() {
+        fetch('/status')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('status').textContent = data.connected ? '✅ WhatsApp Conectado' : '❌ WhatsApp Desconectado';
+            });
+        }
+
+        setInterval(checkStatus, 2000); // Atualiza o status a cada 5 segundos
+
+        function refreshQRCode() {
+            fetchQRCode();
+        }
+
+        fetchQRCode();
+        checkStatus();
+        setInterval(checkStatus, 5000);
+    </script>
+</body>
+</html>
