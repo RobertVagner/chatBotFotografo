@@ -50,9 +50,9 @@ app.get('/status', (req, res) => {
 
 // Iniciar o servidor Express
 app.listen(port, () => {
-    console.log(`🌍 Servidor rodando em http://localhost:${port}`);
+    console.log(`🌍 Servidor rodando em https://chatpatrick.onrender.com`);
 });
-
+//console.log(`🌍 Servidor rodando em http://localhost:${port}`);
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
