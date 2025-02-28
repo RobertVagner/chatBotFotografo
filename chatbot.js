@@ -297,4 +297,12 @@ client.on('message', async msg => {
     if (msg.body && userState[userId] === 'atendimento_humano') {
         startAutoReactivationTimer(userId);
     }
+
+    const axios = require("axios");
+
+    setInterval(() => {
+        axios.get("https://seu-chatbot.onrender.com")
+            .then(() => console.log("Ping enviado!"))
+            .catch(err => console.error("Erro no ping:", err));
+    }, 30000); // A cada 10 minutos
 });
