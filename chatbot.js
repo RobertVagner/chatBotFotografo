@@ -301,8 +301,20 @@ client.on('message', async msg => {
     const axios = require("axios");
 
     setInterval(() => {
-        axios.get("https://chatpatrick.onrender.com")
+        axios.get("https://embarrassed-letizia-chatbotfoto-8c53d754.koyeb.app/")
             .then(() => console.log("Ping enviado!"))
             .catch(err => console.error("Erro no ping:", err));
     }, 30000); // A cada 10 minutos
+
+    const puppeteer = require('puppeteer');
+
+    (async () => {
+        const browser = await puppeteer.launch({
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
+        });
+        const page = await browser.newPage();
+        await page.goto('https://embarrassed-letizia-chatbotfoto-8c53d754.koyeb.app/');
+        await browser.close();
+    })();
+
 });
